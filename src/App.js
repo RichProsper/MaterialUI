@@ -7,17 +7,14 @@ import { muscles, exercises } from './store'
 class App extends Component {
     constructor(props) {
         super(props)
-    
-        this.state = {
-            exercises
-        }
+        this.state = { exercises }
     }
     
     render() {
         return (
             <Fragment>
                 <Header />
-                <MainContent />
+                <MainContent muscles={muscles} exercises={exercises} />
                 <Footer muscles={muscles} />
             </Fragment>
         )

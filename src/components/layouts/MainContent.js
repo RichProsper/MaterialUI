@@ -1,28 +1,60 @@
-import React, { Component } from 'react'
-import { Grid, Paper } from '@material-ui/core'
-import LeftPanel from './content/LeftPanel'
-import RightPanel from './content/RightPanel'
+import React, { Component, Fragment } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Grid, Paper, Typography, List, ListItem, ListItemText } from '@material-ui/core'
 
 class MainContent extends Component {
     styles = {
-        paper: {
+        paperLeft: {
             padding: '20px',
             marginTop: '10px',
-            marginBottom: '10px'
+            marginBottom: '10px',
+            height: `${window.innerHeight - 188}px`,
+            overflow: 'auto',
+            marginRight: '5px'
+        },
+        paperRight: {
+            padding: '20px',
+            marginTop: '10px',
+            marginBottom: '10px',
+            height: `${window.innerHeight - 188}px`,
+            overflow: 'auto',
+            marginLeft: '5px'
         }
     }
-
+    
     render() {
+        const { muscles, exercises } = this.props
+
         return (
             <Grid container>
                 <Grid item sm>
-                    <Paper style={this.styles.paper}>
-                        <LeftPanel /> 
+                    <Paper style={this.styles.paperLeft}>
+                        {muscles.map(muscle =>
+                            <Fragment>
+                                <Typography variant='h6' style={{textTransform:'capitalize'}}>
+                                    {muscle}
+                                </Typography>
+                                <List component="ul">
+                                    {exercises.filter(exercise => exercise.muscles == muscle)
+                                        .map(({ title }) =>
+                                            <ListItem button>
+                                                <ListItemText primary={title} />
+                                            </ListItem>
+                                        )
+                                    }
+                                </List>
+                            </Fragment>
+                        )}
                     </Paper>
                 </Grid>
                 <Grid item sm>
-                    <Paper style={this.styles.paper}>
-                        <RightPanel />
+                    <Paper style={this.styles.paperRight}>
+                        <Typography variant='h5'>
+                            Welcome!
+                        </Typography>
+                        <Typography variant='subtitle2' style={{marginTop:'20px'}}>
+                            Please select an exercise from the list on the left.
+                        </Typography>
                     </Paper>
                 </Grid>
             </Grid>
