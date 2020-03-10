@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Paper, Typography, List, ListItem, ListItemText } from '@material-ui/core'
 
 class MainContent extends Component {
