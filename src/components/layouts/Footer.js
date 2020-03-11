@@ -1,20 +1,16 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { Paper, Tabs, Tab } from '@material-ui/core'
 
-const useStyles = makeStyles({
-    root: {
-        flexGrow: 1,
-    },
-})
-
-function Footer({ muscles }) {
-    const classes = useStyles()
+function Footer({ muscles, changeTab }) {
     const [value, setValue] = React.useState(0)
-    const handleChange = (event, newValue) => setValue(newValue)
+    
+    const handleChange = (event, newVal) => {
+        setValue(newVal)
+        changeTab( newVal === 0 ? 'All' : muscles[newVal - 1] )
+    }
 
     return (
-        <Paper className={classes.root}>
+        <Paper style={{flexGrow:1}}>
             <Tabs value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>
                 <Tab label='All' />
                 {muscles.map(muscle => <Tab label={muscle} />)}

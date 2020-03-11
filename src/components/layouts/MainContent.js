@@ -22,27 +22,29 @@ class MainContent extends Component {
     }
     
     render() {
-        const { muscles, exercises } = this.props
+        const { muscles, exercises, muscleGroup } = this.props
 
         return (
             <Grid container>
                 <Grid item sm>
                     <Paper style={this.styles.paperLeft}>
                         {muscles.map(muscle =>
-                            <Fragment>
-                                <Typography variant='h6' style={{textTransform:'capitalize'}}>
-                                    {muscle}
-                                </Typography>
-                                <List component="ul">
-                                    {exercises.filter(exercise => exercise.muscles == muscle)
-                                        .map(({ title }) =>
-                                            <ListItem button>
-                                                <ListItemText primary={title} />
-                                            </ListItem>
-                                        )
-                                    }
-                                </List>
-                            </Fragment>
+                            muscleGroup === 'All' || muscleGroup === muscle
+                            ?   <Fragment>
+                                    <Typography variant='h6' style={{textTransform:'capitalize'}}>
+                                        {muscle}
+                                    </Typography>
+                                    <List component="ul">
+                                        {exercises.filter(exercise => exercise.muscles == muscle)
+                                            .map(({ title }) =>
+                                                <ListItem button>
+                                                    <ListItemText primary={title} />
+                                                </ListItem>
+                                            )
+                                        }
+                                    </List>
+                                </Fragment>
+                            : null
                         )}
                     </Paper>
                 </Grid>
