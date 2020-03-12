@@ -2,6 +2,22 @@ import React, { Component, Fragment } from 'react'
 import { Grid, Paper, Typography, List, ListItem, ListItemText } from '@material-ui/core'
 
 class MainContent extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+            title: 'Welcome!',
+            desc: 'Please select an exercise from the list on the left.'
+        }
+    }
+
+    showExercise = (title, desc) => {
+        this.setState({
+            title,
+            desc
+        })
+    }
+    
     styles = {
         paperLeft: {
             padding: '20px',
@@ -22,7 +38,7 @@ class MainContent extends Component {
     }
     
     render() {
-        const { muscles, exercises, muscleGroup } = this.props
+        const { muscles, exercises, muscleGroup} = this.props
 
         return (
             <Grid container>
@@ -30,31 +46,35 @@ class MainContent extends Component {
                     <Paper style={this.styles.paperLeft}>
                         {muscles.map(muscle =>
                             muscleGroup === 'All' || muscleGroup === muscle
-                            ?   <Fragment>
+                            ?   <Fragment key={muscle}>
                                     <Typography variant='h6' style={{textTransform:'capitalize'}}>
                                         {muscle}
                                     </Typography>
                                     <List component="ul">
-                                        {exercises.filter(exercise => exercise.muscles == muscle)
-                                            .map(({ title }) =>
-                                                <ListItem button>
+                                        {exercises.filter(exercise => exercise.muscles === muscle)
+                                            .map(({ title, description }) =>
+                                                <ListItem
+                                                    key={title}
+                                                    button
+                                                    onClick={() => {this.showExercise(title, description)}}
+                                                >
                                                     <ListItemText primary={title} />
                                                 </ListItem>
                                             )
                                         }
                                     </List>
                                 </Fragment>
-                            : null
+                            :   null
                         )}
                     </Paper>
                 </Grid>
                 <Grid item sm>
                     <Paper style={this.styles.paperRight}>
                         <Typography variant='h5'>
-                            Welcome!
+                            {this.state.title}
                         </Typography>
                         <Typography variant='subtitle2' style={{marginTop:'20px'}}>
-                            Please select an exercise from the list on the left.
+                            {this.state.desc}
                         </Typography>
                     </Paper>
                 </Grid>

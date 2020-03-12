@@ -13,7 +13,7 @@ function Footer({ muscles, changeTab }) {
         <Paper style={{flexGrow:1}}>
             <Tabs value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>
                 <Tab label='All' />
-                {muscles.map(muscle => <Tab label={muscle} />)}
+                {muscles.map(muscle => <Tab key={muscle} label={muscle} />)}
             </Tabs>
         </Paper>
     )
