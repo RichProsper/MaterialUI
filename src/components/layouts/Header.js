@@ -4,15 +4,9 @@ import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/co
 import MenuIcon from '@material-ui/icons/Menu'
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
+    root: { flexGrow: 1, },
+    menuButton: { marginRight: theme.spacing(2), },
+    title: { flexGrow: 1, },
 }))
 
 function Header() {

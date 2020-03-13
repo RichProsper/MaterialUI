@@ -7,7 +7,7 @@ class MainContent extends Component {
     
         this.state = {
             title: 'Welcome!',
-            desc: 'Please select an exercise from the list on the left.'
+            desc : 'Please select an exercise from the list on the left.'
         }
     }
 
