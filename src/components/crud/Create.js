@@ -1,23 +1,49 @@
 import React, { Fragment } from 'react'
 import {
     Button, IconButton, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    makeStyles
+    makeStyles, InputLabel, MenuItem, FormControl, Select
 } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@material-ui/icons/Add'
+import { muscles } from '../../store'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
         borderRadius: 50,
         color: 'white'
+    },
+    formControl: {
+        marginTop: theme.spacing(1),
+        width: '100%'
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+        textTransform: "capitalize"
+    },
+    menuItem: {
+        textTransform: "capitalize"
     }
-})
+}))
 
 function Create() {
     const [open, setOpen] = React.useState(false)
+    const [age, setAge] = React.useState('')
     const handleClickOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+    const changeMuscles = event => setAge(event.target.value)
     const styles = useStyles()
+
+    const createExercise = () => {
+        // ! TO DO: Validate input data
+        
+        console.log(
+            document.getElementById('title').value,
+            document.getElementById('desc').value,
+            document.getElementById('muscles').innerHTML,
+        )
+
+        handleClose()
+    }
   
     return (
         <Fragment>
@@ -35,17 +61,58 @@ function Create() {
                         Please fill out the form below.
                     </DialogContentText>
                     <TextField
+                        id="title"
                         autoFocus
                         margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
+                        label="Title"
+                        type="text"
                         fullWidth
                     />
+                    <TextField
+                        id="desc"
+                        margin="dense"
+                        label="Description"
+                        type="text"
+                        multiline
+                        rowsMax="4"
+                        fullWidth
+                    />
+                    <FormControl className={styles.formControl}>
+                        <InputLabel shrink id="musclesLabel">Muscles</InputLabel>
+                        <Select
+                            labelId="musclesLabel"
+                            id="muscles"
+                            displayEmpty
+                            value={age}
+                            onChange={changeMuscles}
+                            className={styles.selectEmpty}
+                        >
+                            <MenuItem value=""><em>None</em></MenuItem>
+                            {muscles.map(muscle => 
+                                <MenuItem className={styles.menuItem} key={muscle} value={muscle}>
+                                    {muscle}
+                                </MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary" variant="contained" style={{flex:1}}>Create</Button>
-                    <Button onClick={handleClose} color="secondary" variant="contained" style={{flex:1}}>Cancel</Button>
+                    <Button
+                        onClick={createExercise}
+                        color="primary"
+                        variant="contained"
+                        style={{flex:1}}
+                    >
+                        Create
+                    </Button>
+                    <Button
+                        onClick={handleClose}
+                        color="secondary"
+                        variant="contained"
+                        style={{flex:1}}
+                    >
+                        Cancel
+                    </Button>
                 </DialogActions>
             </Dialog>
         </Fragment>
