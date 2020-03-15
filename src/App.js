@@ -13,14 +13,13 @@ class App extends Component {
         }
     }
 
-    changeTab = muscleGroup => {
-        this.setState({ muscleGroup })
-    }
+    changeTab = muscleGroup => this.setState({ muscleGroup })
+    createExercise = exercise => this.setState({ exercises: [...exercises, exercise] })
     
     render() {
         return (
             <Fragment>
-                <Header />
+                <Header createExercise={this.createExercise} />
                 <MainContent muscles={muscles} exercises={exercises} muscleGroup={this.state.muscleGroup} />
                 <Footer muscles={muscles} changeTab={this.changeTab} />
             </Fragment>

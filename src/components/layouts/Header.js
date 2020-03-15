@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     title: { flexGrow: 1, },
 }))
 
-function Header() {
+function Header({ createExercise }) {
     const classes = useStyles();
     return (
         <AppBar position="static">
@@ -18,7 +18,9 @@ function Header() {
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>Exercises <Create /></Typography>
+                <Typography variant="h6" className={classes.title}>
+                    Exercises <Create createExercise={createExercise} />
+                </Typography>
                 <Button color="inherit">Login</Button>
             </Toolbar>
         </AppBar>

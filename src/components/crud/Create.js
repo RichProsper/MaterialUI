@@ -25,23 +25,26 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function Create() {
+function Create({ createExercise }) {
     const [open, setOpen] = React.useState(false)
     const [age, setAge] = React.useState('')
     const handleClickOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
+    const handleClose = () => {
+        setOpen(false)
+        setAge('') // Sets select value back to 'None'
+    }
     const changeMuscles = event => setAge(event.target.value)
     const styles = useStyles()
 
-    const createExercise = () => {
-        // ! TO DO: Validate input data
-        
-        console.log(
-            document.getElementById('title').value,
-            document.getElementById('desc').value,
-            document.getElementById('muscles').innerHTML,
-        )
+    const createExerciseHandler = () => {
+        const title = document.getElementById('title').value
+        const description = document.getElementById('desc').value
+        const inputMuscles = document.getElementById('muscles').innerHTML
 
+        // ! TO DO: Validate input data
+
+        const id = title.toLowerCase().replace(/ /g, '-')
+        createExercise({id:id, title:title, description:description, muscles:inputMuscles })
         handleClose()
     }
   
@@ -98,20 +101,12 @@ function Create() {
                 </DialogContent>
                 <DialogActions>
                     <Button
-                        onClick={createExercise}
+                        onClick={createExerciseHandler}
                         color="primary"
                         variant="contained"
-                        style={{flex:1}}
+                        style={{width:'92.5%',marginRight:'4%'}}
                     >
                         Create
-                    </Button>
-                    <Button
-                        onClick={handleClose}
-                        color="secondary"
-                        variant="contained"
-                        style={{flex:1}}
-                    >
-                        Cancel
                     </Button>
                 </DialogActions>
             </Dialog>
